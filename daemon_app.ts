@@ -14,7 +14,11 @@ const PORT = process.env.PORT ? Number(process.env.PORT) : 4040;
 
 const allowedOrigins: string[] = process.env.ALLOWED_ORIGINS
   ? process.env.ALLOWED_ORIGINS.split(",")
-  : ["http://localhost:3002", "http://localhost:4200"];
+  : [
+      "http://localhost:3002",
+      "http://localhost:4200",
+      "https://adorable-narwhal-fc4a0d.netlify.app",
+    ];
 
 app.use(
   cors({
