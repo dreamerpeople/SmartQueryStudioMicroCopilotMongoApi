@@ -40,6 +40,7 @@ app.use(
       "Content-Type",
       "Authorization",
       "x-api-key",
+      "x-request-hash",
       "Accept",
       "X-Requested-With",
       "Origin",
