@@ -123,10 +123,9 @@ userSchema.virtual("fullName").get(function (this: IUserDocument) {
   return `${this.firstName} ${this.lastName}`;
 });
 
-userSchema.pre<IUserDocument>("save", async function (next) {
-  if (!this.isModified("passwordHash") || !this.passwordHash) return next();
+userSchema.pre<IUserDocument>("save", async function () {
+  if (!this.isModified("passwordHash") || !this.passwordHash) return;
   this.passwordHash = await bcrypt.hash(this.passwordHash, 12);
-  next();
 });
 
 userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {

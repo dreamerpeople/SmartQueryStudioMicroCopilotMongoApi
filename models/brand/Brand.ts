@@ -1,7 +1,6 @@
 import mongoose, { Document, Schema } from 'mongoose';
 
 export interface IBrand {
-  _id?: string;
   name: string;
   slug: string;
   description: string;
