@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 export interface IBrand {
   name: string;
@@ -15,7 +15,7 @@ export interface IBrand {
   };
   website?: string;
   country?: string;
-  status?: 'ACTIVE' | 'INACTIVE';
+  status?: "ACTIVE" | "INACTIVE";
   isFeatured?: boolean;
   sortOrder?: number;
   vendorId?: string | null;
@@ -49,7 +49,7 @@ const brandSchema = new Schema<IBrandDocument>(
     },
     website: { type: String },
     country: { type: String },
-    status: { type: String, enum: ['ACTIVE', 'INACTIVE'], default: 'ACTIVE' },
+    status: { type: String, enum: ["ACTIVE", "INACTIVE"], default: "ACTIVE" },
     isFeatured: { type: Boolean, default: false },
     sortOrder: { type: Number, default: 0 },
     vendorId: { type: String, default: null },
@@ -62,8 +62,8 @@ const brandSchema = new Schema<IBrandDocument>(
       youtube: { type: String },
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Brand = mongoose.model<IBrandDocument>('brands', brandSchema);
+const Brand = mongoose.model<IBrandDocument>("brands", brandSchema);
 export default Brand;

@@ -1,6 +1,5 @@
-import mongoose, { Document, Model, Schema, Types } from 'mongoose';
-import bcrypt from 'bcryptjs';
-
+import mongoose, { Document, Model, Schema, Types } from "mongoose";
+import bcrypt from "bcryptjs";
 
 export interface IUser {
   userId: string;
@@ -10,13 +9,13 @@ export interface IUser {
   email: string;
   passwordHash: string;
   phoneNumber?: string;
-  role: 'customer' | 'vendor' | 'admin';
+  role: "customer" | "vendor" | "admin";
 
   wishlist: string[];
   cartId?: string;
   avatar: string;
   isEmailVerified: boolean;
-  status: 'active' | 'inactive' | 'suspended';
+  status: "active" | "inactive" | "suspended";
   lastLogin?: Date;
   customerId?: Types.ObjectId;
   isGuest?: boolean;
@@ -32,21 +31,20 @@ export interface IUserDocument extends IUser, Document {
 
 interface IUserModel extends Model<IUserDocument> {}
 
-
 const userSchema = new Schema<IUserDocument>(
   {
     userId: {
       type: String,
-      required: [true, 'User ID is required'],
+      required: [true, "User ID is required"],
       unique: true,
-      index: true
+      index: true,
     },
     username: {
       type: String,
-      required: [true, 'Username is required'],
+      required: [true, "Username is required"],
       unique: true,
       trim: true,
-      index: true
+      index: true,
     },
     firstName: {
       type: String,
@@ -86,11 +84,13 @@ const userSchema = new Schema<IUserDocument>(
       default: "customer",
     },
 
-    wishlist: [{
-      type: String
-    }],
+    wishlist: [
+      {
+        type: String,
+      },
+    ],
     cartId: {
-      type: String
+      type: String,
     },
     avatar: {
       type: String,
@@ -108,7 +108,7 @@ const userSchema = new Schema<IUserDocument>(
     },
     customerId: {
       type: Schema.Types.ObjectId,
-      ref: 'Customer',
+      ref: "Customer",
     },
     lastLogin: Date,
   },
@@ -128,7 +128,9 @@ userSchema.pre<IUserDocument>("save", async function () {
   this.passwordHash = await bcrypt.hash(this.passwordHash, 12);
 });
 
-userSchema.methods.comparePassword = async function (candidatePassword: string): Promise<boolean> {
+userSchema.methods.comparePassword = async function (
+  candidatePassword: string,
+): Promise<boolean> {
   if (!this.passwordHash) return false;
   return await bcrypt.compare(candidatePassword, this.passwordHash);
 };
